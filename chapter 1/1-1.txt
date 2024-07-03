@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Introduction to Packet Filtering using eBPF with TC Interface}
+\author{}
+\date{}
+\maketitle
+
+\section*{Overview}
+
+The advent of eBPF (Extended Berkeley Packet Filter) has revolutionized network packet processing by providing a powerful, flexible, and efficient way to run custom code within the Linux kernel. This documentation explores the use of eBPF for packet filtering, focusing specifically on its integration with the Traffic Control (TC) interface. The combination of eBPF and TC enables sophisticated network traffic management capabilities, offering enhanced control and visibility over both ingress and egress traffic.
+
+\section*{What is eBPF?}
+
+eBPF is a highly efficient virtual machine embedded within the Linux kernel. It allows for the execution of custom bytecode safely within the kernel space, enabling developers to perform detailed packet analysis and modification without compromising system stability. eBPF programs can be attached to various hooks within the kernel, including network packet processing, system calls, and tracepoints, making it a versatile tool for system and network administrators.
+
+\section*{Traffic Control (TC) in Linux}
+
+Traffic Control (TC) is a core component of the Linux networking stack used to control the flow of packets through network interfaces. TC allows for the implementation of policies that can classify, prioritize, shape, and filter network traffic. It operates at both the ingress (incoming) and egress (outgoing) paths of network interfaces, providing a comprehensive framework for traffic management.
+
+TC utilizes queuing disciplines (qdiscs) and filters to manage packet queues and apply various policies. By integrating eBPF with TC, we can extend its functionality with custom logic, enabling more granular and dynamic control over network traffic.
+
+\section*{eBPF and TC Integration}
+
+The integration of eBPF with TC leverages the strengths of both technologies. TC provides the framework for packet scheduling and classification, while eBPF allows for the execution of custom packet processing logic. This integration is achieved by attaching eBPF programs to TC hooks, allowing for real-time packet filtering and modification based on user-defined criteria.
+
+\subsection*{Ingress and Egress Filtering}
+
+\textbf{Ingress Filtering}: This is the process of filtering packets as they arrive at the network interface. By attaching eBPF programs to the TC ingress hook, we can inspect and manipulate incoming packets before they are processed by the networking stack. This is useful for implementing security policies, such as blocking malicious traffic or rate-limiting certain types of packets.
+
+\textbf{Egress Filtering}: This involves filtering packets as they leave the network interface. By attaching eBPF programs to the TC egress hook, we can control and modify outgoing packets after they have been processed by the networking stack but before they are transmitted. This is essential for scenarios like traffic shaping, network address translation (NAT), and ensuring compliance with security policies.
+
+\section*{Project Objectives}
+
+The primary objective of this project is to demonstrate the application of eBPF for packet filtering using the TC interface. By the end of this documentation, readers should be able to:
+
+\begin{enumerate}
+    \item Understand the fundamentals of eBPF and its role in network packet processing.
+    \item Comprehend the architecture and functionality of the TC subsystem in Linux.
+    \item Implement eBPF programs for ingress and egress packet filtering using TC hooks.
+    \item Develop custom packet filtering logic to meet specific network management requirements.
+\end{enumerate}
+
+\section*{Benefits of Using eBPF with TC}
+
+The integration of eBPF with TC offers several benefits, including:
+
+\begin{enumerate}
+    \item \textbf{High Performance}: eBPF programs run within the kernel, providing low-latency packet processing capabilities. This is crucial for high-performance network applications where minimizing processing delays is essential.
+    \item \textbf{Flexibility}: eBPF allows for the execution of custom bytecode, enabling the implementation of complex packet filtering and modification logic that would be difficult or impossible with traditional TC filters alone.
+    \item \textbf{Safety}: eBPF includes a verifier that ensures programs are safe to execute within the kernel, preventing potential crashes or security vulnerabilities.
+    \item \textbf{Dynamic Updates}: eBPF programs can be loaded, unloaded, and updated at runtime without requiring a reboot or kernel recompilation. This allows for rapid deployment and iteration of network policies.
+    \item \textbf{Extensive Visibility}: By attaching eBPF programs to various kernel hooks, administrators can gain deep visibility into network traffic and system behavior, facilitating advanced monitoring and troubleshooting.
+\end{enumerate}
+
+\section*{Use Cases}
+
+The combination of eBPF and TC is applicable to a wide range of use cases, including but not limited to:
+
+\begin{itemize}
+    \item \textbf{Firewalling}: Implementing stateful and stateless firewalls to block unauthorized access and protect network resources.
+    \item \textbf{Traffic Shaping}: Controlling bandwidth usage and ensuring fair distribution of network resources through traffic prioritization and rate limiting.
+    \item \textbf{Load Balancing}: Distributing incoming traffic across multiple servers or services to optimize resource utilization and improve redundancy.
+    \item \textbf{Intrusion Detection and Prevention}: Monitoring network traffic for signs of malicious activity and taking proactive measures to mitigate potential threats.
+    \item \textbf{Performance Monitoring}: Collecting detailed metrics on network traffic patterns and system performance to identify bottlenecks and optimize resource allocation.
+\end{itemize}
+
+\section*{Conclusion}
+
+eBPF, when combined with TC, provides a powerful and flexible framework for network packet filtering and traffic management. This documentation aims to equip readers with the knowledge and skills necessary to harness these technologies effectively, enabling them to build robust and efficient network policies tailored to their specific requirements. Through practical examples and detailed explanations, we will explore the full potential of eBPF and TC, demonstrating their value in modern network administration.
+
+\end{document}
