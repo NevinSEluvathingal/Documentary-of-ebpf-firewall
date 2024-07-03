@@ -1,0 +1,122 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\section*{Methodology}
+
+\subsection*{Overview}
+
+This project leverages a combination of modern technologies to implement a comprehensive network monitoring and control system. The stack consists of Svelte for the frontend, PostgreSQL for the database, Shadcn components for UI elements, Go for backend services, eBPF and iptables for network rule application. The system provides real-time insights into current speed, peak bandwidth, monthly data usage, connected devices, and offers an interface for applying network rules.
+
+\subsection*{System Architecture}
+
+The architecture of the system is divided into several key components, each responsible for a specific aspect of the system's functionality. These components work together to provide a seamless user experience and robust network control capabilities.
+
+\subsubsection*{Frontend: Svelte with Shadcn Components}
+
+The frontend is built using Svelte, a modern JavaScript framework known for its simplicity and performance. Svelte allows us to create highly interactive and responsive user interfaces with minimal overhead. The Shadcn component library is used to provide a consistent and aesthetically pleasing user interface.
+
+\paragraph{Key Features:}
+
+\begin{itemize}
+    \item \textbf{Real-time Data Display}: The frontend displays current network speed, peak bandwidth, monthly data usage, and connected devices in real-time.
+    \item \textbf{Rule Application Interface}: Users can apply network rules through an intuitive interface, which communicates with the backend services to enforce these rules.
+\end{itemize}
+
+\subsubsection*{Backend: Go Services}
+
+The backend services are developed using Go, a statically typed, compiled programming language designed for high performance and reliability. Go's concurrency model and efficient memory management make it an ideal choice for handling real-time network data and processing.
+
+\paragraph{Key Services:}
+
+\begin{itemize}
+    \item \textbf{Data Aggregation Service}: Collects and aggregates network data from various sources.
+    \item \textbf{Rule Management Service}: Manages the creation, modification, and deletion of network rules.
+    \item \textbf{API Gateway}: Provides a RESTful API for the frontend to interact with backend services.
+\end{itemize}
+
+\subsubsection*{Database: PostgreSQL}
+
+PostgreSQL, a powerful, open-source object-relational database system, is used to store all network data, including usage statistics, device information, and applied rules. PostgreSQL's robustness and support for advanced features like JSONB make it an excellent choice for our data storage needs.
+
+\paragraph{Key Features:}
+
+\begin{itemize}
+    \item \textbf{Data Persistence}: Ensures that all network data is stored reliably and can be queried efficiently.
+    \item \textbf{Complex Queries}: Supports complex queries needed for generating reports and statistics.
+\end{itemize}
+
+\subsubsection*{Network Rule Enforcement: eBPF and iptables}
+
+eBPF (Extended Berkeley Packet Filter) and iptables are used to enforce network rules at the kernel level. eBPF allows for high-performance packet filtering and monitoring, while iptables is a more traditional tool for configuring the Linux kernel firewall.
+
+\paragraph{eBPF:}
+
+\begin{itemize}
+    \item \textbf{Packet Filtering}: High-performance packet filtering based on custom rules.
+    \item \textbf{Monitoring}: Real-time monitoring of network traffic for statistics collection.
+\end{itemize}
+
+\paragraph{iptables:}
+
+\begin{itemize}
+    \item \textbf{Rule Management}: Handles the application and management of network rules.
+    \item \textbf{Compatibility}: Works alongside eBPF for a comprehensive rule enforcement mechanism.
+\end{itemize}
+
+\subsection*{Data Collection and Processing}
+
+Data collection involves capturing network packets and analyzing them to extract relevant statistics. This is done using eBPF programs hooked onto various network interfaces to monitor incoming and outgoing traffic.
+
+\paragraph{Steps:}
+
+\begin{enumerate}
+    \item \textbf{Packet Capture}: eBPF programs capture network packets and send relevant data to the backend services.
+    \item \textbf{Data Aggregation}: The Data Aggregation Service processes this data to compute current speed, peak bandwidth, monthly data usage, and connected devices.
+    \item \textbf{Database Storage}: Processed data is stored in PostgreSQL for persistence and querying.
+\end{enumerate}
+
+\subsection*{Frontend-Backend Communication}
+
+The frontend communicates with the backend services through a RESTful API. This API provides endpoints for fetching network data and applying network rules.
+
+\paragraph{Endpoints:}
+
+\begin{itemize}
+    \item \textbf{GET /network/stats}: Fetches current speed, peak bandwidth, monthly data usage, and connected devices.
+    \item \textbf{POST /network/rules}: Applies a new network rule.
+    \item \textbf{DELETE /network/rules/\{id\}}: Deletes an existing network rule.
+\end{itemize}
+
+\subsection*{User Interface}
+
+The user interface is designed to be user-friendly and intuitive, allowing users to easily monitor their network and apply rules. Key UI components include:
+
+\begin{itemize}
+    \item \textbf{Dashboard}: Displays real-time network statistics.
+    \item \textbf{Rules Management}: Interface for creating, modifying, and deleting network rules.
+    \item \textbf{Device List}: Shows all connected devices and their respective data usage.
+\end{itemize}
+
+\subsection*{Workflow}
+
+The typical workflow of the system is as follows:
+
+\begin{enumerate}
+    \item \textbf{Data Collection}: eBPF programs capture network packets and send data to the backend.
+    \item \textbf{Data Processing}: The Data Aggregation Service processes this data and stores it in PostgreSQL.
+    \item \textbf{Frontend Update}: The frontend periodically fetches the latest data from the backend and updates the UI.
+    \item \textbf{Rule Application}: Users apply network rules through the frontend, which communicates with the backend to enforce these rules using eBPF and iptables.
+\end{enumerate}
+
+\subsubsection*{Real-Time Updates}
+
+To ensure real-time updates, the frontend uses WebSockets to receive push notifications from the backend whenever there are significant changes in network data or when rules are applied. This minimizes latency and ensures that the user always has the most up-to-date information.
+
+\subsection*{Conclusion}
+
+This project demonstrates a robust approach to network monitoring and control using modern technologies. By combining Svelte, PostgreSQL, Shadcn components, Go, eBPF, and iptables, we have created a system that not only provides detailed network insights but also allows for dynamic rule application. This methodology ensures high performance, reliability, and a user-friendly experience, making it an effective solution for managing network traffic.
+
+\end{document}
